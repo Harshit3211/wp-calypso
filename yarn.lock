@@ -6573,6 +6573,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/cheerio@npm:*":
+  version: 0.22.30
+  resolution: "@types/cheerio@npm:0.22.30"
+  dependencies:
+    "@types/node": "*"
+  checksum: b5ade8b6936a176a7dcbc8b5ca458d8c349f97ebaebc7a897df09aa3ffb7e9194c39e494feb786c1d34143dcbabbc0247b7f71bf20a5173c5366dd0a362b2436
+  languageName: node
+  linkType: hard
+
 "@types/color-name@npm:^1.1.1":
   version: 1.1.1
   resolution: "@types/color-name@npm:1.1.1"
@@ -6607,6 +6616,16 @@ __metadata:
   version: 0.0.3
   resolution: "@types/doctrine@npm:0.0.3"
   checksum: 566dcdc988c97ff01d14493ceb2223643347f07cf0a88c86cd7cb7c2821cfc837fd39295e6809a29614fdfdc6c4e981408155ca909b2e5da5d947af939b6c966
+  languageName: node
+  linkType: hard
+
+"@types/enzyme@npm:^3.10.9":
+  version: 3.10.9
+  resolution: "@types/enzyme@npm:3.10.9"
+  dependencies:
+    "@types/cheerio": "*"
+    "@types/react": "*"
+  checksum: 29f8de84a4bcbc8e4b22913fa5ee05958f6dd53ec597096459fcc3b0fb24c7b322e3250bc81408be31c3466c2637eb7a36d973fa4e5d7548c9d0225c9bc2fcbf
   languageName: node
   linkType: hard
 
@@ -41196,6 +41215,7 @@ typescript@^4.3.5:
     "@storybook/react": ^6.1.10
     "@types/cookie": ^0.4.1
     "@types/debug": ^4.1.7
+    "@types/enzyme": ^3.10.9
     "@types/fast-json-stable-stringify": ^2.0.0
     "@types/jest": ^25.2.3
     "@types/lodash": ^4.14.171
