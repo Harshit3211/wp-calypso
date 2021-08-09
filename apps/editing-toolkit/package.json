@@ -72,8 +72,8 @@
 		"whats-new": "BROWSERSLIST_ENV=wpcom calypso-build --env source='whats-new'",
 		"dev:whats-new": "yarn run whats-new",
 		"build:whats-new": "NODE_ENV=production yarn run whats-new",
-		"dev": "yarn clean && node bin/npm-run-build.js --dev",
-		"build": "yarn clean && node bin/npm-run-build.js --build && yarn validate-es5",
+		"dev": "node bin/npm-run-build.js --dev",
+		"build": "node bin/npm-run-build.js --build",
 		"test:js": "npx wp-scripts test-unit-js --config='jest.config.js' --colors",
 		"test:js:help": "npx wp-scripts test-unit-js --config='jest.config.js' --help --colors",
 		"test:js:watch": "npx wp-scripts test-unit-js --config='jest.config.js' --watch --colors",
@@ -82,7 +82,6 @@
 		"clean": "npx rimraf dist 'editing-toolkit-plugin/*/dist'",
 		"sync:newspack-blocks": "./bin/sync-newspack-blocks.sh",
 		"wpcom-sync": "./bin/wpcom-watch-and-sync.sh",
-		"validate-es5": "npx eslint --parser-options=ecmaVersion:5 --no-eslintrc --no-ignore './editing-toolkit-plugin/*/dist/*.js'",
 		"lint:php": "../../vendor/bin/phpcs --standard=../phpcs.xml ./ ",
 		"lint:php:fix": "../../vendor/bin/phpcbf --standard=../phpcs.xml ./ "
 	},
