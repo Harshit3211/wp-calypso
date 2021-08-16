@@ -251,17 +251,6 @@ UndocumentedMe.prototype.newValidationAccountRecoveryEmail = function ( callback
 	return this.wpcom.req.post( args, callback );
 };
 
-UndocumentedMe.prototype.deletePurchase = function ( purchaseId, fn ) {
-	debug( '/me/purchases/{purchaseId}/delete' );
-
-	return this.wpcom.req.post(
-		{
-			path: `/me/purchases/${ purchaseId }/delete`,
-		},
-		fn
-	);
-};
-
 /**
  * Connect the current account with a social service (e.g. Google/Facebook).
  *
