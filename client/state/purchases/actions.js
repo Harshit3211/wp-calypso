@@ -79,7 +79,7 @@ export const fetchUserPurchases = ( userId ) => ( dispatch ) => {
 
 export const removePurchase = ( purchaseId, userId ) => ( dispatch ) => {
 	return new Promise( ( resolve, reject ) => {
-		wpcom.req.post(
+		wp.req.post(
 			{
 				path: `/purchases/${ purchaseId }/delete`,
 				apiNamespace: 'wpcom/v2',
