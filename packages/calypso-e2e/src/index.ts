@@ -8,4 +8,5 @@ export { BrowserHelper, BrowserManager, MediaHelper, DataHelper, ElementHelper }
 
 export * from './lib';
 export * from './hooks';
-export * from './types'
+
+export type { TestFile } from './media-helper';
