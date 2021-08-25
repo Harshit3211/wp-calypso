@@ -40,6 +40,7 @@
 		"@automattic/calypso-stripe": "^1.0.0",
 		"@automattic/composite-checkout": "^1.0.0",
 		"@automattic/shopping-cart": "^1.0.0",
+		"@emotion/core": "^10.0.27",
 		"@emotion/styled": "^10.0.27",
 		"@wordpress/i18n": "^3.20.0",
 		"@wordpress/react-i18n": "^1.0.3",
