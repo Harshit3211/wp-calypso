@@ -11,8 +11,9 @@ import {
 	TestFile,
 } from '@automattic/calypso-e2e';
 import { Page } from 'playwright';
+import { TEST_IMAGE_PATH, TEST_AUDIO_PATH } from '../constants';
 
-describe( DataHelper.createSuiteTitle( 'Blocks: Media (Upload)' ), () => {
+describe( DataHelper.createSuiteTitle( 'Blocks: Media (Upload)' ), function () {
 	let gutenbergEditorPage: GutenbergEditorPage;
 	let page: Page;
 	let testFiles: { image: TestFile; image_reserved_name: TestFile; audio: TestFile };
@@ -23,12 +24,11 @@ describe( DataHelper.createSuiteTitle( 'Blocks: Media (Upload)' ), () => {
 
 	beforeAll( async () => {
 		testFiles = {
-			image: await MediaHelper.createTestImage(),
-			image_reserved_name: await MediaHelper.createTestFile( {
-				sourceFileName: 'image0.jpg',
-				testFileName: 'filewith#?#?reservedurlchars',
+			image: await MediaHelper.createTestFile( TEST_IMAGE_PATH ),
+			image_reserved_name: await MediaHelper.createTestFile( TEST_IMAGE_PATH, {
+				postfix: 'filewith#?#?reservedurlchars',
 			} ),
-			audio: await MediaHelper.createTestAudio(),
+			audio: await MediaHelper.createTestFile( TEST_AUDIO_PATH ),
 		};
 	} );
 
@@ -78,22 +78,21 @@ describe( DataHelper.createSuiteTitle( 'Blocks: Media (Upload)' ), () => {
 		await gutenbergEditorPage.publish( { visit: true, saveDraft: true } );
 	} );
 
-	it( `Confirm Image block is visible in published post`, async () => {
-		await ImageBlock.validatePublishedContent( page, testFiles.image.filename );
+	it( `Confirm Image block is visible in published post`, async function () {
+		await ImageBlock.validatePublishedContent( page, [ testFiles.image.filename ] );
 	} );
 
-	it( `Confirm Image block is visible in published post (reserved name)`, async () => {
-		await ImageBlock.validatePublishedContent(
-			page,
-			testFiles.image_reserved_name.filename.replace( /[^a-zA-Z ]/g, '' )
-		);
+	it( `Confirm Image block is visible in published post (reserved name)`, async function () {
+		await ImageBlock.validatePublishedContent( page, [
+			testFiles.image_reserved_name.filename.replace( /[^a-zA-Z ]/g, '' ),
+		] );
 	} );
 
-	it( `Confirm Audio block is visible in published post`, async () => {
+	it( `Confirm Audio block is visible in published post`, async function () {
 		await AudioBlock.validatePublishedContent( page );
 	} );
 
-	it( `Confirm File block is visible in published post`, async () => {
-		await FileBlock.validatePublishedContent( page, testFiles.audio.filename);
+	it( `Confirm File block is visible in published post`, async function () {
+		await FileBlock.validatePublishedContent( page, [ testFiles.audio.filename ] );
 	} );
 } );
