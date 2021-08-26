@@ -7,4 +7,16 @@ module.exports = {
 		check: false,
 		reactDocgen: false,
 	},
+	webpackFinal: async ( config ) => ( {
+		...config,
+		resolve: {
+			...config.resolve,
+			alias: {
+				...config.resolve.alias,
+				// Storybook resolves emotion incorrectly internally, so we need to correct it.
+				// See https://github.com/storybookjs/storybook/issues/13277#issuecomment-751747964.
+				'@emotion/styled': path.join( process.cwd(), 'node_modules/@emotion/styled' ),
+			},
+		},
+	} ),
 };
