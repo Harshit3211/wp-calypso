@@ -1,7 +1,6 @@
 import { withStorageKey } from '@automattic/state-utils';
 import {
 	INLINE_HELP_SEARCH_REQUEST,
-	INLINE_HELP_SEARCH_REQUEST_FAILURE,
 	INLINE_HELP_SEARCH_REQUEST_SUCCESS,
 	INLINE_HELP_SEARCH_REQUEST_API_RESULTS,
 	INLINE_HELP_SELECT_RESULT,
@@ -25,32 +24,11 @@ export const popover = ( state = { isVisible: false }, action ) => {
 	return state;
 };
 
-export function requesting( state = {}, action ) {
-	switch ( action.type ) {
-		case INLINE_HELP_SEARCH_REQUEST:
-			return {
-				...state,
-				[ action.searchQuery ]: true,
-			};
-		case INLINE_HELP_SEARCH_REQUEST_SUCCESS:
-		case INLINE_HELP_SEARCH_REQUEST_FAILURE:
-		case INLINE_HELP_SEARCH_RESET:
-			return {
-				...state,
-				[ action.searchQuery ]: false,
-			};
-	}
-
-	return state;
-}
-
 export const search = (
 	state = {
 		searchQuery: '',
-		items: {},
 		selectedResult: -1,
 		shouldOpenSelectedResult: false,
-		hasAPIResults: false,
 	},
 	action
 ) => {
@@ -58,12 +36,7 @@ export const search = (
 		case INLINE_HELP_SEARCH_RESET:
 			return {
 				searchQuery: '',
-				items: {
-					...state.items,
-					'': action.searchResults,
-				},
 				selectedResult: -1,
-				hasAPIResults: false,
 			};
 		case INLINE_HELP_SET_SEARCH_QUERY:
 			return {
@@ -79,15 +52,10 @@ export const search = (
 			return {
 				...state,
 				selectedResult: -1,
-				items: {
-					...state.items,
-					[ action.searchQuery ]: action.searchResults,
-				},
 			};
 		case INLINE_HELP_SEARCH_REQUEST_API_RESULTS:
 			return {
 				...state,
-				hasAPIResults: action.hasAPIResults,
 			};
 		case INLINE_HELP_SELECT_RESULT:
 			return {
@@ -99,7 +67,7 @@ export const search = (
 	return state;
 };
 
-const searchResults = combineReducers( { requesting, search } );
+const searchResults = combineReducers( { search } );
 
 export const contactForm = (
 	state = {
