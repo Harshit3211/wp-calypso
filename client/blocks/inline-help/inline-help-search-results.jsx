@@ -6,7 +6,6 @@ import page from 'page';
 import PropTypes from 'prop-types';
 import React, { Fragment, useEffect } from 'react';
 import { connect } from 'react-redux';
-import QueryInlineHelpSearch from 'calypso/components/data/query-inline-help-search';
 import QueryUserPurchases from 'calypso/components/data/query-user-purchases';
 import Gridicon from 'calypso/components/gridicon';
 import { decodeEntities, preventWidows } from 'calypso/lib/formatting';
@@ -14,18 +13,15 @@ import { localizeUrl } from 'calypso/lib/i18n-utils';
 import { recordTracksEvent } from 'calypso/state/analytics/actions';
 import { getCurrentUserId } from 'calypso/state/current-user/selectors';
 import { selectResult } from 'calypso/state/inline-help/actions';
-import getInlineHelpCurrentlySelectedResult from 'calypso/state/inline-help/selectors/get-inline-help-currently-selected-result';
-import getSearchResultsByQuery from 'calypso/state/inline-help/selectors/get-inline-help-search-results-for-query';
 import getSelectedResultIndex from 'calypso/state/inline-help/selectors/get-selected-result-index';
-import isRequestingInlineHelpSearchResultsForQuery from 'calypso/state/inline-help/selectors/is-requesting-inline-help-search-results-for-query';
 import hasCancelableUserPurchases from 'calypso/state/selectors/has-cancelable-user-purchases';
-import hasInlineHelpAPIResults from 'calypso/state/selectors/has-inline-help-api-results';
 import { getSectionName } from 'calypso/state/ui/selectors';
 import {
 	SUPPORT_TYPE_ADMIN_SECTION,
 	SUPPORT_TYPE_API_HELP,
 	SUPPORT_TYPE_CONTEXTUAL_HELP,
 } from './constants';
+import { withInlineHelpSearchQuery } from './data/use-inline-help-search-query';
 import PlaceholderLines from './placeholder-lines';
 
 const noop = () => {};
@@ -235,7 +231,6 @@ function HelpSearchResults( {
 
 	const renderSearchResults = () => {
 		if ( isSearching && ! searchResults.length ) {
-			// search, but no results so far
 			return <PlaceholderLines lines={ placeholderLines } />;
 		}
 
@@ -258,7 +253,6 @@ function HelpSearchResults( {
 
 	return (
 		<>
-			<QueryInlineHelpSearch query={ searchQuery } />
 			{ currentUserId && <QueryUserPurchases userId={ currentUserId } /> }
 			{ renderSearchResults() }
 		</>
@@ -274,18 +268,13 @@ HelpSearchResults.propTypes = {
 	searchResults: PropTypes.array,
 	selectedResultIndex: PropTypes.number,
 	isSearching: PropTypes.bool,
-	selectedResult: PropTypes.object,
 	track: PropTypes.func,
 };
 
 export default connect(
-	( state, ownProps ) => ( {
+	( state ) => ( {
 		currentUserId: getCurrentUserId( state ),
-		searchResults: getSearchResultsByQuery( state ),
-		isSearching: isRequestingInlineHelpSearchResultsForQuery( state, ownProps.searchQuery ),
 		selectedResultIndex: getSelectedResultIndex( state ),
-		hasAPIResults: hasInlineHelpAPIResults( state ),
-		selectedResult: getInlineHelpCurrentlySelectedResult( state ),
 		hasPurchases: hasCancelableUserPurchases( state, getCurrentUserId( state ) ),
 		sectionName: getSectionName( state ),
 	} ),
@@ -293,4 +282,4 @@ export default connect(
 		track: recordTracksEvent,
 		selectSearchResult: selectResult,
 	}
-)( localize( HelpSearchResults ) );
+)( localize( withInlineHelpSearchQuery( HelpSearchResults ) ) );

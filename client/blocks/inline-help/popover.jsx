@@ -12,9 +12,10 @@ import QuerySupportTypes from 'calypso/blocks/inline-help/inline-help-query-supp
 import Gridicon from 'calypso/components/gridicon';
 import { recordTracksEvent } from 'calypso/state/analytics/actions';
 import { selectResult, resetInlineHelpContactForm } from 'calypso/state/inline-help/actions';
-import getInlineHelpCurrentlySelectedResult from 'calypso/state/inline-help/selectors/get-inline-help-currently-selected-result';
 import getSearchQuery from 'calypso/state/inline-help/selectors/get-search-query';
+import getSelectedResultIndex from 'calypso/state/inline-help/selectors/get-selected-result-index';
 import { VIEW_CONTACT, VIEW_RICH_RESULT } from './constants';
+import { withInlineHelpSearchQuery } from './data/use-inline-help-search-query';
 import InlineHelpRichResult from './inline-help-rich-result';
 import InlineHelpSearchCard from './inline-help-search-card';
 import InlineHelpSearchResults from './inline-help-search-results';
@@ -132,11 +133,15 @@ class InlineHelpPopover extends Component {
 						onSelect={ this.openResultView }
 						query={ this.props.searchQuery }
 						isVisible={ ! this.state.showSecondaryView }
+						isSearching={ this.props.isSearching }
 					/>
 					<InlineHelpSearchResults
 						onSelect={ this.openResultView }
 						onAdminSectionSelect={ this.setAdminSection }
 						searchQuery={ this.props.searchQuery }
+						isSearching={ this.props.isSearching }
+						searchResults={ this.props.searchResults }
+						hasAPIResults={ this.props.hasAPIResults }
 					/>
 				</div>
 				{ this.renderSecondaryView() }
@@ -145,11 +150,12 @@ class InlineHelpPopover extends Component {
 	};
 
 	renderSecondaryView = () => {
-		const { onClose, selectedResult, setDialogState } = this.props;
+		const { onClose, selectedResultIndex, searchResults, setDialogState } = this.props;
 		const classes = classNames(
 			'inline-help__secondary-view',
 			`inline-help__${ this.state.activeSecondaryView }`
 		);
+
 		return (
 			<section ref={ this.secondaryViewRef } className={ classes }>
 				{
@@ -164,7 +170,7 @@ class InlineHelpPopover extends Component {
 						),
 						[ VIEW_RICH_RESULT ]: (
 							<InlineHelpRichResult
-								result={ selectedResult }
+								result={ searchResults[ selectedResultIndex ] }
 								setDialogState={ setDialogState }
 								closePopover={ onClose }
 							/>
@@ -198,7 +204,7 @@ class InlineHelpPopover extends Component {
 function mapStateToProps( state ) {
 	return {
 		searchQuery: getSearchQuery( state ),
-		selectedResult: getInlineHelpCurrentlySelectedResult( state ),
+		selectedResultIndex: getSelectedResultIndex( state ),
 	};
 }
 
@@ -211,4 +217,4 @@ const mapDispatchToProps = {
 export default compose(
 	localize,
 	connect( mapStateToProps, mapDispatchToProps )
-)( withMobileBreakpoint( InlineHelpPopover ) );
+)( withMobileBreakpoint( withInlineHelpSearchQuery( InlineHelpPopover ) ) );
