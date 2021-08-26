@@ -1,3 +1,4 @@
+import { constants } from 'fs';
 import fs from 'fs/promises';
 import os from 'os';
 import path from 'path';
@@ -70,16 +71,19 @@ export async function createTestFile(
 		postfix?: string;
 	} = {}
 ): Promise< TestFile > {
+	// Check whether the source file maps to a file.
+	// Note, if sourcePath is not found use console.error instead of throw:
+	// https://github.com/facebook/jest/issues/8688
 	try {
-		await fs.open( sourcePath, 'r' );
+		await fs.access( sourcePath );
 	} catch {
-		throw new Error( `Source file ${ sourcePath } not found on disk.` );
+		console.error( `Source file ${ sourcePath } not found on disk.` );
 	}
 
 	// Obtain the file extension.
 	const extension = path.extname( sourcePath );
 	if ( ! extension ) {
-		throw new Error( `Extension not found on source file ${ sourcePath }` );
+		console.error( `Extension not found on source file ${ sourcePath }` );
 	}
 
 	// Generate a filename using current timestamp and a pseudo-randomly generated integer.
@@ -95,7 +99,11 @@ export async function createTestFile(
 	const tempDir = await fs.mkdtemp( path.join( os.tmpdir(), 'e2e' ) );
 	const targetPath = path.join( tempDir, basename );
 
-	await fs.copyFile( sourcePath, targetPath );
+	try {
+		await fs.copyFile( sourcePath, targetPath, constants.COPYFILE_EXCL );
+	} catch {
+		console.error( `Target file already present at ${ targetPath }` );
+	}
 
 	// Return an object implementing the interface.
 	return {
