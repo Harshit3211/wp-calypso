@@ -9,13 +9,13 @@ Refer to the [Playwright style guide](docs/style-guide-playwright.md) for more i
 <!-- TOC -->
 
 - [Writing Tests](#writing-tests)
-  - [Table of contents](#table-of-contents)
-  - [Get Started](#get-started)
-  - [Top-level block](#top-level-block)
-  - [Child-level block](#child-level-block)
-  - [Setup](#setup)
-  - [Test step](#test-step)
-  - [Hooks](#hooks)
+    - [Table of contents](#table-of-contents)
+    - [Get Started](#get-started)
+    - [Top-level block](#top-level-block)
+    - [Child-level block](#child-level-block)
+    - [Setup](#setup)
+    - [Test step](#test-step)
+    - [Hooks](#hooks)
 
 <!-- /TOC -->
 
@@ -54,7 +54,7 @@ describe( DataHelper.createSuiteTitle( 'Feature' ), function () {} );
 
 Unlike top-level blocks, there are no restrictions on the number of child-level `describe` blocks.
 
-    :warning: while there are no limits to the number of child blocks, exercise restraint - child blocks run sequentially, so if a file takes 8 minutes to complete the CI task will inevitably take that long!
+> :warning: while there are no limits to the number of child blocks, exercise restraint - child blocks run sequentially, so if a file takes 8 minutes to complete the CI task will inevitably take that long!
 
 Using child-level `describe` blocks, group distinct test cases for the feature. Do not use `DataHelper.createSuiteTitle` for child-level blocks:
 
