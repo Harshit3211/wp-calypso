@@ -462,7 +462,7 @@ fun seleniumBuildType( viewportName: String, buildUuid: String): BuildType  {
 				dockerImage = "%docker_image_e2e%"
 			}
 			bashNodeScript {
-				name = "Run e2e tests (desktop)"
+				name = "Run e2e tests ($viewportName)"
 				scriptContent = """
 					shopt -s globstar
 					set -x
@@ -488,7 +488,7 @@ fun seleniumBuildType( viewportName: String, buildUuid: String): BuildType  {
 					export MAGELLANDEBUG=true
 
 					# Decrypt config
-					openssl aes-256-cbc -md sha1 -d -in ./config/encrypted.enc -out ./config/local-test.json -k "%CONFIG_E2E_ENCRYPTION_KEY%"
+					yarn decryptconfig
 
 					# Run the test
 					export BROWSERSIZE="$viewportName"

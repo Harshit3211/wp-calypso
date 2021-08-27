@@ -26,6 +26,7 @@ describe( DataHelper.createSuiteTitle( 'Support: Popover' ), function () {
 		} );
 
 		it( 'Open Settings page', async function () {
+			await page.pause();
 			const sidebarComponent = new SidebarComponent( page );
 			await sidebarComponent.navigate( 'Settings', 'General' );
 		} );
