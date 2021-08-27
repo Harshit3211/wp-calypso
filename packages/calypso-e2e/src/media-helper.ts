@@ -99,11 +99,7 @@ export async function createTestFile(
 	const tempDir = await fs.mkdtemp( path.join( os.tmpdir(), 'e2e' ) );
 	const targetPath = path.join( tempDir, basename );
 
-	try {
-		await fs.copyFile( sourcePath, targetPath, constants.COPYFILE_EXCL );
-	} catch {
-		console.error( `Target file already present at ${ targetPath }` );
-	}
+	await fs.copyFile( sourcePath, targetPath, constants.COPYFILE_EXCL );
 
 	// Return an object implementing the interface.
 	return {
