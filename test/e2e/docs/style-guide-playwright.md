@@ -8,6 +8,7 @@
     - [Components](#components)
     - [Page Objects](#page-objects)
     - [Flows](#flows)
+    - [Variable naming](#variable-naming)
     - [Async / Await](#async--await)
     - [Selectors](#selectors)
         - [Engine](#engine)
@@ -241,6 +242,26 @@ await someFlow.executeFlow();
 ```
 
 </details>
+
+---
+
+## Variable naming
+
+Variables that derive from a page/component object (eg. SidebarComponent) should be named after the object following camelCase convention.
+
+**Avoid**:
+
+```typescript
+const bar = new SidebarComponent( page );
+const mhp = new MyHomePage( page );
+```
+
+**Instead**:
+
+```typescript
+const sidebarComponent = new SidebarComponent( page );
+const myHomePage = new MyHomePage( page );
+```
 
 ---
 
@@ -526,3 +547,4 @@ const startPage = new StartPage( selector, { visit: true, domainFirst: true } ).
 ```
 
 ---
+

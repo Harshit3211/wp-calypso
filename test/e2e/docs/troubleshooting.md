@@ -5,8 +5,8 @@
 <!-- TOC -->
 
 - [Troubleshooting & Debugging](#troubleshooting--debugging)
-  - [Table of contents](#table-of-contents)
-  - [git pre-commit hook/husky](#git-pre-commit-hookhusky)
+    - [Table of contents](#table-of-contents)
+    - [git pre-commit hook/husky](#git-pre-commit-hookhusky)
 
 <!-- /TOC -->
 
@@ -33,7 +33,7 @@ rm -rf node_modules
 2. return to the <repo_root> and install all dependencies from there:
 
 ```
-npm run install-if-no-packages
+yarn install
 ```
 
 Once complete, running `git commit` should no longer trigger the git pre-commit hook error.
