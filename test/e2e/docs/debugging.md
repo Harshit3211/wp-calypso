@@ -5,13 +5,13 @@
 <!-- TOC -->
 
 - [Debugging](#debugging)
-    - [Table of contents](#table-of-contents)
-    - [Selenium/mocha](#seleniummocha)
-        - [Visual Studio Code](#visual-studio-code)
-        - [Enable Mocha Debug Output](#enable-mocha-debug-output)
-    - [Playwright/Jest](#playwrightjest)
-        - [Debug instance](#debug-instance)
-        - [Playwright Developer Console and Gutenberg iFrame](#playwright-developer-console-and-gutenberg-iframe)
+  - [Table of contents](#table-of-contents)
+  - [Selenium/mocha](#seleniummocha)
+    - [Visual Studio Code](#visual-studio-code)
+    - [Enable Mocha Debug Output](#enable-mocha-debug-output)
+  - [Playwright/Jest](#playwrightjest)
+    - [Debug instance](#debug-instance)
+    - [Playwright Developer Console and Gutenberg iFrame](#playwright-developer-console-and-gutenberg-iframe)
 
 <!-- /TOC -->
 
@@ -101,7 +101,7 @@ To be able to select elements of the iFramed editor:
 
 4. select option `post-new.php`
 
-5. try selecting an element on page. 
+5. try selecting an element on page.
 
 ### Additional notes
 

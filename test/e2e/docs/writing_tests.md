@@ -9,14 +9,14 @@ Refer to the [Selenium style guide](docs/style-guide-selenium.md) or [Playwright
 <!-- TOC -->
 
 - [Writing Tests](#writing-tests)
-    - [Table of contents](#table-of-contents)
+  - [Table of contents](#table-of-contents)
 - [Playwright](#playwright)
-    - [Get Started](#get-started)
-    - [Top-level block](#top-level-block)
-    - [Child-level block](#child-level-block)
-    - [Setup](#setup)
-    - [Test step](#test-step)
-    - [Hooks](#hooks)
+  - [Get Started](#get-started)
+  - [Top-level block](#top-level-block)
+  - [Child-level block](#child-level-block)
+  - [Setup](#setup)
+  - [Test step](#test-step)
+  - [Hooks](#hooks)
 
 <!-- /TOC -->
 
@@ -33,27 +33,24 @@ test/e2e/specs/specs-playwright/wp-<major feature>__<subfeature>.ts
 ```
 
 This is for multiple reasons:
+
 1. grouping of test specs by feature.
 2. separation of subfeatures into separate files to take advantage of parallelization.
 
-2. import the basics:
+3. import the basics:
 
 ```typescript
-import {
-	setupHooks,
-	DataHelper,
-	LoginFlow
-} from '@automattic/calypso-e2e';
+import { setupHooks, DataHelper, LoginFlow } from '@automattic/calypso-e2e';
 ```
 
 ## Top-level block
 
-As referenced in the [Style Guide](style-guide-playwright.md#Tests), there should only be one top-level `describe` block in a spec file. 
+As referenced in the [Style Guide](style-guide-playwright.md#Tests), there should only be one top-level `describe` block in a spec file.
 
 Using the `DataHelper.createSuiteTitle` function, define a name for the overall suite:
 
 ```typescript
-describe( DataHelper.createSuiteTitle( 'Feature' ), function() {})
+describe( DataHelper.createSuiteTitle( 'Feature' ), function () {} );
 ```
 
 ## Child-level block
@@ -87,7 +84,7 @@ describe( DataHelper.createSuiteTitle( 'Feature' ), function () {
 	setupHooks( ( args ) => {
 		page = args.page;
 	} );
-});
+} );
 ```
 
 ## Test step
@@ -99,9 +96,9 @@ Test steps are where most of the action happens in a spec.
 Define a test step using the `it` keyword and give it a unique, descriptive name:
 
 ```typescript
-it( 'Navigate to Media', async function() {
+it( 'Navigate to Media', async function () {
 	await SidebarComponent.navigate( 'Media' );
-})
+} );
 ```
 
 `Jest` enforces that test steps within a `describe` block must have unique names.
@@ -109,15 +106,15 @@ it( 'Navigate to Media', async function() {
 If a test is to be parametrized, use Jest's built-in [`each`](https://jestjs.io/docs/api#testeachtablename-fn-timeout):
 
 ```typescript
-it.each([
-	{ target: 'Media'},
-	{ target: 'Settings'},
-])( 'Navigate to $a', async function( {target} ) {
-	await SidebarComponent.navigate( target )
-});
+it.each( [ { target: 'Media' }, { target: 'Settings' } ] )(
+	'Navigate to $a',
+	async function ( { target } ) {
+		await SidebarComponent.navigate( target );
+	}
+);
 ```
 
-## Hooks 
+## Hooks
 
 [Hooks](https://jestjs.io/docs/api) are steps run before/after each file or before/after each step in order to perform setup/teardown.
 
@@ -128,4 +125,3 @@ beforeAll( async () => {
 	logoImage = await MediaHelper.createTestImage();
 } );
 ```
-

@@ -7,25 +7,25 @@ This document will cover the environment setup process to run the `wp-calypso` e
 <!-- TOC -->
 
 - [Setup](#setup)
-    - [Table of contents](#table-of-contents)
-    - [Software Environment](#software-environment)
-        - [Required software](#required-software)
-    - [Environment Variables](#environment-variables)
-    - [Setup steps macOS 10.15 and 11.0](#setup-steps-macos-1015-and-110)
-        - [Intel architecture](#intel-architecture)
-        - [Apple Silicon emulated x86_64](#apple-silicon-emulated-x86_64)
-        - [Apple Silicon arm64](#apple-silicon-arm64)
-    - [Credentials](#credentials)
-    - [Configuration](#configuration)
-        - [Overview](#overview)
-        - [Quick start](#quick-start)
-        - [Custom configs](#custom-configs)
+  - [Table of contents](#table-of-contents)
+  - [Software Environment](#software-environment)
+    - [Required software](#required-software)
+  - [Environment Variables](#environment-variables)
+  - [Setup steps macOS 10.15 and 11.0](#setup-steps-macos-1015-and-110)
+    - [Intel architecture](#intel-architecture)
+    - [Apple Silicon emulated x86_64](#apple-silicon-emulated-x86_64)
+    - [Apple Silicon arm64](#apple-silicon-arm64)
+  - [Credentials](#credentials)
+  - [Configuration](#configuration)
+    - [Overview](#overview)
+    - [Quick start](#quick-start)
+    - [Custom configs](#custom-configs)
 
 <!-- /TOC -->
 
 ## Software Environment
 
-The provided steps are for macOS 11.0 Big Sur. 
+The provided steps are for macOS 11.0 Big Sur.
 It may work for Linux distributions and/or Windows but no guarantees are provided.
 
 ### Required software
