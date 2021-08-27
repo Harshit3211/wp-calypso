@@ -2,7 +2,7 @@
 
 This document will outline tips to write successful tests for both Selenium and Playwright suites.
 
-Refer to the [Selenium style guide](docs/style-guide-selenium.md) or [Playwright style guide](docs/style-guide-playwright.md) for more information.
+Refer to the [Playwright style guide](docs/style-guide-playwright.md) for more information.
 
 ## Table of contents
 
@@ -10,7 +10,6 @@ Refer to the [Selenium style guide](docs/style-guide-selenium.md) or [Playwright
 
 - [Writing Tests](#writing-tests)
   - [Table of contents](#table-of-contents)
-- [Playwright](#playwright)
   - [Get Started](#get-started)
   - [Top-level block](#top-level-block)
   - [Child-level block](#child-level-block)
@@ -19,8 +18,6 @@ Refer to the [Selenium style guide](docs/style-guide-selenium.md) or [Playwright
   - [Hooks](#hooks)
 
 <!-- /TOC -->
-
-# Playwright
 
 ## Get Started
 
@@ -34,10 +31,10 @@ test/e2e/specs/specs-playwright/wp-<major feature>__<subfeature>.ts
 
 This is for multiple reasons:
 
-1. grouping of test specs by feature.
-2. separation of subfeatures into separate files to take advantage of parallelization.
+- grouping of test specs by feature.
+- separation of subfeatures into separate files to take advantage of parallelization.
 
-3. import the basics:
+2. import the basics:
 
 ```typescript
 import { setupHooks, DataHelper, LoginFlow } from '@automattic/calypso-e2e';
@@ -47,7 +44,7 @@ import { setupHooks, DataHelper, LoginFlow } from '@automattic/calypso-e2e';
 
 As referenced in the [Style Guide](style-guide-playwright.md#Tests), there should only be one top-level `describe` block in a spec file.
 
-Using the `DataHelper.createSuiteTitle` function, define a name for the overall suite:
+Using the `DataHelper.createSuiteTitle` function, define a short, descriptive name for the overall suite:
 
 ```typescript
 describe( DataHelper.createSuiteTitle( 'Feature' ), function () {} );
@@ -56,6 +53,8 @@ describe( DataHelper.createSuiteTitle( 'Feature' ), function () {} );
 ## Child-level block
 
 Unlike top-level blocks, there are no restrictions on the number of child-level `describe` blocks.
+
+    :warning: while there are no limits to the number of child blocks, exercise restraint - child blocks run sequentially, so if a file takes 8 minutes to complete the CI task will inevitably take that long!
 
 Using child-level `describe` blocks, group distinct test cases for the feature. Do not use `DataHelper.createSuiteTitle` for child-level blocks:
 
@@ -69,11 +68,9 @@ describe( DataHelper.createSuiteTitle( 'Feature' ), function() {
 })
 ```
 
-:warning: while there are no limits to the number of child blocks, exercise restraint - child blocks run sequentially, so if a file takes 8 minutes to complete the CI task will inevitably take that long!
-
 ## Setup
 
-At a minimum, setup steps are required to start the browser instance.
+With Playwright, the `page` instance lives until it is closed or crashes. As such, the same `page` instance can be used throughout the test.
 
 Invoke the `setupHooks` call to obtain an instance of a `Page` object:
 
