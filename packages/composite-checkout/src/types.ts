@@ -102,7 +102,7 @@ export interface CheckoutProviderProps {
 	paymentMethods: PaymentMethod[];
 	onPaymentComplete?: PaymentEventCallback;
 	onPaymentRedirect?: PaymentEventCallback;
-	onPaymentError?: PaymentEventCallback;
+	onPaymentError?: PaymentErrorCallback;
 	showErrorMessage: ShowNoticeFunction;
 	showInfoMessage: ShowNoticeFunction;
 	showSuccessMessage: ShowNoticeFunction;
@@ -122,6 +122,10 @@ export interface PaymentProcessorProp {
 }
 
 export type PaymentEventCallback = ( args: PaymentEventCallbackArguments ) => void;
+export type PaymentErrorCallback = ( args: {
+	paymentMethodId: string | null;
+	transactionError: string | null;
+} ) => void;
 
 export type PaymentEventCallbackArguments = {
 	paymentMethodId: string | null;
