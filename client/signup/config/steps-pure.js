@@ -707,6 +707,12 @@ export function generateSteps( {
 
 		design: {
 			stepName: 'design-picker',
+			props: {
+				theme:
+					currentPage && currentPage.toString().match( /\/start\/with-design-picker/ )
+						? 'dark'
+						: 'light',
+			},
 			dependencies: [ 'siteSlug' ],
 			providesDependencies: [ 'selectedDesign' ],
 			optionalDependencies: [ 'selectedDesign' ],
